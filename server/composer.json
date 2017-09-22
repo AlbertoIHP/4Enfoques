@@ -18,7 +18,7 @@
 		"tymon/jwt-auth": "^0.5.12",
 		"yajra/laravel-datatables-buttons": "^2.0",
 		"yajra/laravel-datatables-oracle": "^7.0",
-		"barryvdh/laravel-cors": "latest"
+		"barryvdh/laravel-cors": "0.8.4"
 	},
 	"require-dev": {
 		"appointer/swaggervel": "^2.1",
