@@ -1,0 +1,182 @@
+
+
+
+
+		<h4 style="text-align: center;">Mis Proyectos</h4>
+
+		<div class="row container">
+			<div class="fixed-action-btn horizontal click-to-toggle">
+				<a (click)="crearProyecto()" id="menu" class="btn-floating btn-large red">
+				<i class="material-icons">add</i></a>
+			</div>
+
+
+			<div class="row">
+				<div class="col s4">
+					<div class="card" data-activates='dropdown1' materialize="dropdown">
+						<div class="card-image">
+							<img src="../../assets/escuela.jpg">
+							<span class="card-title">CSM para administradora</span>
+						</div>
+						<div class="card-content">
+							<p>Desarrollo para puente cautin</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="col s4">
+					<div class="card" data-activates='dropdown1' materialize="dropdown">
+						<div class="card-image">
+							<img src="../../assets/escuela.jpg">
+							<span class="card-title">ERP para escuela</span>
+						</div>
+						<div class="card-content">
+							<p>Proyecto de desarrollo de software</p>
+						</div>
+					</div>
+				</div>
+
+
+
+				<div class="col s4">
+					<div class="card" data-activates='dropdown1' materialize="dropdown">
+						<div class="card-image">
+							<img src="../../assets/escuela.jpg">
+							<span class="card-title">Implementacion de almacen de datos para hospital</span>
+						</div>
+						<div class="card-content">
+							<p>Recoleccion de informacion para proyecciones</p>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+
+						<div class="row">
+				<div class="col s4">
+					<div class="card" data-activates='dropdown1' materialize="dropdown">
+						<div class="card-image">
+							<img src="../../assets/escuela.jpg">
+							<span class="card-title">CSM para administradora</span>
+						</div>
+						<div class="card-content">
+							<p>Desarrollo para puente cautin</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="col s4">
+					<div class="card" data-activates='dropdown1' materialize="dropdown">
+						<div class="card-image">
+							<img src="../../assets/escuela.jpg">
+							<span class="card-title">ERP para escuela</span>
+						</div>
+						<div class="card-content">
+							<p>Proyecto de desarrollo de software</p>
+						</div>
+					</div>
+				</div>
+
+
+
+				<div class="col s4">
+					<div class="card" data-activates='dropdown1' materialize="dropdown">
+						<div class="card-image">
+							<img src="../../assets/escuela.jpg">
+							<span class="card-title">Implementacion de almacen de datos para hospital</span>
+						</div>
+						<div class="card-content">
+							<p>Recoleccion de informacion para proyecciones</p>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+
+		</div>
+	
+
+
+
+
+
+
+
+
+
+
+	<!-- Modal Structure -->
+	<div id="modal1" class="modal bottom-sheet" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+
+		<form (ngSubmit)="c.form.valid && agregarProyecto()" #c="ngForm">
+			<div class="modal-content">
+
+
+			<div class="row">
+
+				<div class="input-field col s3">
+					<input [myHighlight]="color"  name="name" [(ngModel)]="nuevoProyecto.name" #name="ngModel" id="name" type="text" class="validate" [attr.data-tooltip]="tooltipText">
+					<label for="name">Nombre del proyecto</label>
+				</div>
+
+
+				<div class="input-field col s3">
+					<input [myHighlight]="color"  name="description" [(ngModel)]="nuevoProyecto.text" #email="ngModel" id="description" type="text" class="validate" [attr.data-tooltip]="tooltipText">
+					<label for="description">Descripcion</label>
+				</div>
+
+				<div class="input-field col s3">
+					<select [(ngModel)]="nuevoProyecto.area" name="area" materialize="material_select" [materializeSelectOptions]="areaOptions">
+						<option value="" disabled></option>
+						<option *ngFor="let area of areaOptions" [value]="area.value">{{area.name}}</option>
+					</select>
+					<label>Area seleccionada ({{nuevoProyecto.area}})</label>
+				</div>
+
+
+				<div class="input-field col s3">
+							 <label for="date">Fecha limite</label>	
+							 <input type="text" [(ngModel)]="nuevoProyecto.date" name="date" materialize="pickadate" id="date" [materializeParams]="[{format:'dd/mm/yyyy'}]" />
+				</div>
+
+
+			</div>
+
+
+			</div>
+
+
+			<div class="modal-footer">
+			<a class="waves-effect waves-green red accent-1 btn-flat" (click)="closeModal()">Cerrar</a>
+			<button class="btn waves-effect waves-green btn-flat" type="submit" name="action">Añadir proyecto
+					<i class="material-icons right">send</i>
+				</button>
+			</div>
+
+
+		</form>
+	</div>
+	
+			<!-- Tap Target Structure -->
+			<div class="tap-target" data-activates="menu" materialize [materializeActions]="tapTargetActions">
+				<div class="tap-target-content">
+				<h5>Crear Proyecto</h5>
+				<p>Haga click aqui para crear un nuevo proyecto</p>
+				</div>
+			</div>
+
+
+
+
+
+		 <!-- Dropdown Structure -->
+
+		 
+		 <ul id='dropdown1' class='dropdown-content'>
+			 <li><a>Abrir</a></li>
+			 <li><a>Editar</a></li>
+			 <li class="divider"></li>
+			 <li><a>Eliminar</a></li>
+		 </ul>

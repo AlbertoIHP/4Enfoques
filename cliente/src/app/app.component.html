@@ -1,0 +1,41 @@
+
+
+<nav>
+  <div class="teal lighten-2 nav-wrapper">
+	<a (click)="clickear()" class="brand-logo"><img src="../assets/logo.png" style="
+width: 168px;
+height: 69px;
+max-height: 89px;
+max-width: 158px;
+"></a>
+	<ul class="right hide-on-med-and-down">
+	  <li *ngIf="logged">
+	<div class="fixed-action-btn horizontal click-to-toggle botonsito">	
+	  <a><i class="material-icons">more_vert</i></a>
+		<ul class="miListita">
+
+
+			<li  ><a  (click)="editarPerfil()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Editar perfil"  class="btn-floating blue tooltipped"><i class="material-icons ">edit</i></a></li>
+			<li><a (click)="cerrarSesion()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Cerrar sesion" class="btn-floating red tooltipped"><i class="material-icons">close</i></a></li>
+		</ul>
+	  </div>
+	  </li>
+
+	</ul>
+  </div>
+</nav>
+
+
+	<div class="parallax-container">
+		<div class="parallax" materialize="parallax"><img src="http://materializecss.com/images/parallax1.jpg"></div>
+	</div>
+
+	<div class="section white">
+<!-- Esta seccion es la que cambiara segun vayamos moviendonos con las rutas -->
+	<router-outlet></router-outlet>
+	</div>
+
+
+	<div class="parallax-container">
+		<div class="parallax" materialize="parallax"><img src="http://materializecss.com/images/parallax2.jpg"></div>
+	</div>

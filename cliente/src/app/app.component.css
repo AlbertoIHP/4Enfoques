@@ -1,0 +1,20 @@
+.botonsito{
+	position: static !important;
+}
+
+
+.miListita{
+right: 35px !important;
+top: 29% !important;
+width: 173px !important;
+}
+
+.parallax-container{
+	height: 287px !important;
+}
+
+.section{
+	padding-top: 0rem !important;
+	padding-bottom: 0rem !important;
+	margin-top: -10% !important;
+}
