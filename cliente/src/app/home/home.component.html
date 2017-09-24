@@ -2,101 +2,43 @@
 
 
 
-		<h4 style="text-align: center;">Mis Proyectos</h4>
-
 		<div class="row container">
 			<div class="fixed-action-btn horizontal click-to-toggle">
 				<a (click)="crearProyecto()" id="menu" class="btn-floating btn-large red">
 				<i class="material-icons">add</i></a>
 			</div>
-
-
-			<div class="row">
-				<div class="col s4">
-					<div class="card" data-activates='dropdown1' materialize="dropdown">
-						<div class="card-image">
-							<img src="../../assets/escuela.jpg">
-							<span class="card-title">CSM para administradora</span>
-						</div>
-						<div class="card-content">
-							<p>Desarrollo para puente cautin</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="col s4">
-					<div class="card" data-activates='dropdown1' materialize="dropdown">
-						<div class="card-image">
-							<img src="../../assets/escuela.jpg">
-							<span class="card-title">ERP para escuela</span>
-						</div>
-						<div class="card-content">
-							<p>Proyecto de desarrollo de software</p>
-						</div>
-					</div>
-				</div>
-
-
-
-				<div class="col s4">
-					<div class="card" data-activates='dropdown1' materialize="dropdown">
-						<div class="card-image">
-							<img src="../../assets/escuela.jpg">
-							<span class="card-title">Implementacion de almacen de datos para hospital</span>
-						</div>
-						<div class="card-content">
-							<p>Recoleccion de informacion para proyecciones</p>
-						</div>
-					</div>
-				</div>
-
-			</div>
-
-
-						<div class="row">
-				<div class="col s4">
-					<div class="card" data-activates='dropdown1' materialize="dropdown">
-						<div class="card-image">
-							<img src="../../assets/escuela.jpg">
-							<span class="card-title">CSM para administradora</span>
-						</div>
-						<div class="card-content">
-							<p>Desarrollo para puente cautin</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="col s4">
-					<div class="card" data-activates='dropdown1' materialize="dropdown">
-						<div class="card-image">
-							<img src="../../assets/escuela.jpg">
-							<span class="card-title">ERP para escuela</span>
-						</div>
-						<div class="card-content">
-							<p>Proyecto de desarrollo de software</p>
-						</div>
-					</div>
-				</div>
-
-
-
-				<div class="col s4">
-					<div class="card" data-activates='dropdown1' materialize="dropdown">
-						<div class="card-image">
-							<img src="../../assets/escuela.jpg">
-							<span class="card-title">Implementacion de almacen de datos para hospital</span>
-						</div>
-						<div class="card-content">
-							<p>Recoleccion de informacion para proyecciones</p>
-						</div>
-					</div>
-				</div>
-
-			</div>
-
-
 		</div>
-	
+
+		  <table>
+		<thead>
+		  <tr>
+			  <th>Nombre</th>
+			  <th>Descripcion</th>
+			  <th>Area</th>
+		<th>Fecha de Termino (Deadline)</th>
+		<th>Acciones</th>
+
+		  </tr>
+		</thead>
+
+		<tbody>
+		  <tr *ngFor="let project of userProjects">
+			<td>{{ project.name }}</td>
+			<td>{{ project.text }}</td>
+	  <td>{{ project.area }}</td>
+	  <td>{{ project.date }}</td>
+	  <td>
+		<div class="row">
+		  <div class="col s6"><a style="width: 100%" class="waves-effect waves-light btn" (click)="editarProyecto(project.id)"><i style="margin-left: 41%; " class="material-icons left">edit</i></a></div>
+		  <div class="col s6"><a style="width: 100%;" class="waves-effect waves-light btn" (click)="borrarProyecto(project.id)"><i style="margin-left: 41%; " class="material-icons left">delete</i></a></div>
+		</div>
+	  </td>
+		  </tr>
+		</tbody>
+	  </table>
+
+
+
 
 
 
@@ -117,29 +59,29 @@
 			<div class="row">
 
 				<div class="input-field col s3">
-					<input [myHighlight]="color"  name="name" [(ngModel)]="nuevoProyecto.name" #name="ngModel" id="name" type="text" class="validate" [attr.data-tooltip]="tooltipText">
+					<input required  name="name" [(ngModel)]="nuevoProyecto.name" #name="ngModel" id="name" type="text" class="validate" [attr.data-tooltip]="tooltipText">
 					<label for="name">Nombre del proyecto</label>
 				</div>
 
 
 				<div class="input-field col s3">
-					<input [myHighlight]="color"  name="description" [(ngModel)]="nuevoProyecto.text" #email="ngModel" id="description" type="text" class="validate" [attr.data-tooltip]="tooltipText">
+					<input required   name="description" [(ngModel)]="nuevoProyecto.text" #email="ngModel" id="description" type="text" class="validate" [attr.data-tooltip]="tooltipText">
 					<label for="description">Descripcion</label>
 				</div>
 
 				<div class="input-field col s3">
-					<select [(ngModel)]="nuevoProyecto.area" name="area" materialize="material_select" [materializeSelectOptions]="areaOptions">
+					<select required [(ngModel)]="nuevoProyecto.area" name="area" materialize="material_select" [materializeSelectOptions]="areaOptions">
 						<option value="" disabled></option>
 						<option *ngFor="let area of areaOptions" [value]="area.value">{{area.name}}</option>
 					</select>
 					<label>Area seleccionada ({{nuevoProyecto.area}})</label>
 				</div>
 
+		<div class="input-field col s3">
+			   <label for="date">Fecha limite</label>
+			   <input type="text" [(ngModel)]="nuevoProyecto.date" name="date" materialize="pickadate" id="date" [materializeParams]="[{format:'yyyy-mm-dd'}]" />
+		</div>
 
-				<div class="input-field col s3">
-							 <label for="date">Fecha limite</label>	
-							 <input type="text" [(ngModel)]="nuevoProyecto.date" name="date" materialize="pickadate" id="date" [materializeParams]="[{format:'dd/mm/yyyy'}]" />
-				</div>
 
 
 			</div>
@@ -158,7 +100,7 @@
 
 		</form>
 	</div>
-	
+
 			<!-- Tap Target Structure -->
 			<div class="tap-target" data-activates="menu" materialize [materializeActions]="tapTargetActions">
 				<div class="tap-target-content">
@@ -168,15 +110,3 @@
 			</div>
 
 
-
-
-
-		 <!-- Dropdown Structure -->
-
-		 
-		 <ul id='dropdown1' class='dropdown-content'>
-			 <li><a>Abrir</a></li>
-			 <li><a>Editar</a></li>
-			 <li class="divider"></li>
-			 <li><a>Eliminar</a></li>
-		 </ul>

@@ -13,10 +13,11 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 
 
-//Servicios 
+//Servicios
 import { UserService } from './services/user/user.service';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { HighlightDirective } from './directives/highlight/highlight.directive';
+import { ProjectmanagerComponent } from './projectmanager/projectmanager.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { HighlightDirective } from './directives/highlight/highlight.directive';
 		AppComponent,
 		LoginComponent,
 		HighlightDirective,
-		HomeComponent
+		HomeComponent,
+		ProjectmanagerComponent
   ],
   imports: [
 		BrowserModule,

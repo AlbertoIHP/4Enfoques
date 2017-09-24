@@ -68,6 +68,7 @@ class UserAPIController extends AppBaseController
 		return $this->sendResponse($users->toArray(), 'Users retrieved successfully');
 	}
 
+
 	/**
 	 * @param CreateUserAPIRequest $request
 	 * @return Response
@@ -219,6 +220,8 @@ class UserAPIController extends AppBaseController
 
 		/** @var User $user */
 		$user = $this->userRepository->findWithoutFail($id);
+
+
 
 		if (empty($user)) {
 			return $this->sendError('User not found');

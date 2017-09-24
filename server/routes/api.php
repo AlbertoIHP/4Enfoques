@@ -35,7 +35,8 @@ Route::group(['middleware' => ['cors', 'jwt.auth']], function () {
 	Route::resource('v1/softgoals', 'SoftgoalAPIController');
 
 	Route::resource('v1/nfrs', 'NfrAPIController');
-	
+
+	Route::resource('v1/projects', 'ProjectAPIController');
 });
 
 
@@ -43,5 +44,8 @@ Route::group(['middleware' => ['cors', 'jwt.auth']], function () {
 
 Route::group(['middleware' => ['cors']], function(){
 	Route::post('/login', 'AuthController@userAuth');
+
 	Route::post('/v1/users', 'UserAPIController@store');
+		
+	
 });

@@ -10,12 +10,12 @@ max-width: 158px;
 "></a>
 	<ul class="right hide-on-med-and-down">
 	  <li *ngIf="logged">
-	<div class="fixed-action-btn horizontal click-to-toggle botonsito">	
+	<div class="fixed-action-btn horizontal click-to-toggle botonsito">
 	  <a><i class="material-icons">more_vert</i></a>
 		<ul class="miListita">
 
 
-			<li  ><a  (click)="editarPerfil()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Editar perfil"  class="btn-floating blue tooltipped"><i class="material-icons ">edit</i></a></li>
+			<li  ><a  (click)="openModal()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Editar perfil"  class="btn-floating blue tooltipped"><i class="material-icons ">edit</i></a></li>
 			<li><a (click)="cerrarSesion()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Cerrar sesion" class="btn-floating red tooltipped"><i class="material-icons">close</i></a></li>
 		</ul>
 	  </div>
@@ -26,16 +26,51 @@ max-width: 158px;
 </nav>
 
 
-	<div class="parallax-container">
-		<div class="parallax" materialize="parallax"><img src="http://materializecss.com/images/parallax1.jpg"></div>
-	</div>
-
-	<div class="section white">
 <!-- Esta seccion es la que cambiara segun vayamos moviendonos con las rutas -->
 	<router-outlet></router-outlet>
-	</div>
 
 
-	<div class="parallax-container">
-		<div class="parallax" materialize="parallax"><img src="http://materializecss.com/images/parallax2.jpg"></div>
-	</div>
+    <!-- Modal Structure -->
+  <div id="modal1" class="modal bottom-sheet" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+
+    <form (ngSubmit)="c.form.valid && editarPerfil()" #c="ngForm">
+      <div class="modal-content">
+
+
+      <div class="row">
+
+        <div class="input-field col s4">
+          <input  name="username" [(ngModel)]="currentUser.name" #username="ngModel" id="username" type="text" class="validate" [attr.data-tooltip]="tooltipText">
+          <label for="username">Nombre de usuario</label>
+        </div>
+
+        <div class="input-field col s4">
+          <input name="password" [(ngModel)]="currentUser.password" #password="ngModel" id="password" type="password" class="validate" [attr.data-tooltip]="tooltipText">
+          <label for="password">Contraseña</label>
+        </div>
+
+
+        <div class="input-field col s4">
+          <select [(ngModel)]="currentUser.profession" name="profession" materialize="material_select" [materializeSelectOptions]="professionOptions">
+            <option value="" disabled>{{currentUser.profession}}</option>
+            <option *ngFor="let profession of professionOptions" [value]="profession.value">{{profession.name}}</option>
+          </select>
+          <label>Seleccione una profesion ({{currentUser.profession}})</label>
+        </div>
+
+      </div>
+
+
+      </div>
+
+
+      <div class="modal-footer">
+      <a class="waves-effect waves-green red accent-1 btn-flat" (click)="closeModal()">Cerrar</a>
+      <button class="btn waves-effect waves-green btn-flat" type="submit" name="action">Actualizar Informacion
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+
+
+    </form>
+  </div>

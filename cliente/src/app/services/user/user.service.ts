@@ -9,6 +9,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
 
 //Se importan los modelos a utilizar
 import { User } from '../../models/user';
+import { Project } from '../../models/project';
 
 
 @Injectable()
@@ -21,22 +22,62 @@ export class UserService {
 	constructor(
 		private http: Http,
 		private authenticationService: AuthenticationService) {
+		console.log("Construyendo la cabezera con el token necesario");
+		this.headers = new Headers({
+			'Authorization': 'Bearer ' + this.authenticationService.token,
+			'Content-Type': 'application/json'
+		});
+
+		this.options = new RequestOptions({ headers: this.headers });
+
 
 	}
+
+  editUser(user: User, id: number){
+     return this.http.put(this.base+'users/'+id, JSON.stringify(user), this.options).map((res: Response) => res.json());
+  }
+
+  getUser(id) : Observable<User> {
+    return this.http.get(this.base+'users/'+id, this.options).map((res: Response) => res.json());
+  }
 
 
 	//Este metodo obtiene los usuarios y utiliza la cabezera para el token
 	getUsers(): Observable<User[]> {
-		// add authorization header with jwt token
-
-		console.log("Construyendo la cabezera con el token necesario");
-		this.headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
-		this.options = new RequestOptions({ headers: this.headers });
-
-
-		// get users from api
-
-		console.log("Haciendo la peticion a la API de usuarios");
 		return this.http.get(this.base+'users', this.options).map((res: Response) => res.json());
 	}
+
+	//Este metodo obtiene los usuarios y utiliza la cabezera para el token
+	getProjects() : Observable<Project[]>{
+		return this.http.get(this.base+'projects', this.options).map((res: Response) => res.json());
+	}
+
+
+	deleteProject(id){
+		return this.http.delete(this.base+'projects/'+id, this.options).map((res: Response) => res.json());
+	}
+
+	addProject(project: Project): Observable<boolean> {
+
+		console.log(JSON.stringify(project));
+
+
+		return this.http.post(this.base+'projects',JSON.stringify(project), this.options).map
+		(response =>
+			{
+				if (response.ok) {
+						return true;
+				}else{
+						return false;
+				}
+
+			}
+			);
+
+	}
+
+
+
+
+
 }

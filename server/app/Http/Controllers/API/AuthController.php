@@ -7,6 +7,8 @@ use JWTAuth;
 use JWTFactory;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Controllers\AppBaseController;
+use App\Http\Controllers\API\UserAPIController;
+
 
 class AuthController extends AppBaseController
 {
@@ -30,6 +32,9 @@ class AuthController extends AppBaseController
 			error_log("Error no documentado");
 			return response()->json(['error' => 'could_not_create_token'], 500);
 		}
+
+
+
 
 		error_log("Retornando token");
 		// all good so return the token

@@ -6,23 +6,25 @@ import { RouterModule, Routes } from '@angular/router';
 //Se importan todos los modulos a rutear
 import { LoginComponent }   from '../login/login.component';
 import { HomeComponent }   from '../home/home.component';
+import { ProjectmanagerComponent }   from '../projectmanager/projectmanager.component';
 
 //Se declaran como constantes todas las rutas con sus respectivos nombres
 const routes: Routes = [
 
 	{ path: '',  component: LoginComponent },
-	{ path: 'home',  component: HomeComponent }
+	{ path: 'home',  component: HomeComponent },
+  { path: 'project',  component: ProjectmanagerComponent }
 
 
 ];
 
 //Se importan las rutas declaradas como constantes, y se exportan al modulo para ser utilziados por la vista principal
 @NgModule({
-	imports: [ 
-	RouterModule.forRoot(routes) 
+	imports: [
+	RouterModule.forRoot(routes)
 	],
-	exports: [ 
-	RouterModule 
+	exports: [
+	RouterModule
 	]
 })
 

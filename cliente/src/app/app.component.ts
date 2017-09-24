@@ -2,6 +2,9 @@ import { Component,Injectable, Input, Output, EventEmitter, DoCheck, OnInit } fr
 import { Router } from '@angular/router';
 import {MaterializeAction} from "angular2-materialize";
 declare var Materialize:any;
+import {User} from './models/user';
+import {UserService} from './services/user/user.service';
+
 
 @Component({
 	selector: 'app-root',
@@ -12,16 +15,21 @@ declare var Materialize:any;
 
 @Injectable()
 export class AppComponent implements OnInit{
+  modalActions: any;
+  professionOptions = [{value: "ICI", name: "Ingeniero Civil Informatico"}, {value:"II", name: "Ingeniero Informatico"}];
+  currentUser: any= {id: Date.now(), name: "", email: "", password: "", profession: ""};
+
 
 	ngOnInit() {
 		if(localStorage.getItem('currentUser')){
 		this.logged = true;
+    this.modalActions = new EventEmitter<string|MaterializeAction>();
 	}else{
-		this.logged = true;
+		this.logged = false;
 		}
 	}
 
-	constructor(private router: Router){}
+	constructor(private router: Router, private userService: UserService){}
 
 	public logged: boolean = false;
 	public dir: string;
@@ -31,20 +39,24 @@ export class AppComponent implements OnInit{
 		this.logged = estado;
 	}
 
-	setDir(dir: string){
-		this.dir = dir;
-	}
 
-	setIdUser(id: number){
-		this.idUser = id;
-	}
+  openModal() {
+        var userId = JSON.parse(localStorage.getItem('currentId'));
+        this.userService.getUser(userId).subscribe(data => {
 
+        this.currentUser = data;
+        this.currentUser = this.currentUser.data;
+        console.log(this.currentUser);
+        this.modalActions.emit({action:"modal",params:['open']})
 
+      });
 
-	getIdUser(): number{
-		return this.idUser;
-	}
+  }
 
+  closeModal() {
+
+    this.modalActions.emit({action:"modal",params:['close']});
+  }
 
 	clickear(){
 		console.log("Redirigiendo a home...");
@@ -58,8 +70,15 @@ export class AppComponent implements OnInit{
 	}
 
 	editarPerfil(){
-		if(this.idUser){
-			alert("El usuario logeado tiene id "+this.idUser);
-		}
+
+    var userId = JSON.parse(localStorage.getItem('currentId'));
+
+    this.userService.editUser(this.currentUser, userId).subscribe(data => {
+        console.log(data);
+        console.log(this.currentUser);
+        this.modalActions.emit({action:"toast",params:[['Actualizando informacion <img style="width: 60px; height: 60px; max-width: 60px; max-height: 60px;  " src="../assets/loading.gif">'],1000]});
+        this.modalActions.emit({action:"modal",params:['close']});
+
+      });
 	}
 }
