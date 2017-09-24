@@ -1,3 +1,22 @@
-<p>
-  projectmanager works!
-</p>
+ <div class="col s3" >
+	<ul id="slide-out" class="side-nav fixed" style="position: relative; height: 1000px">
+		<li><div class="user-view">
+			<div class="background">
+				<img src="http://www.apertura.com/__export/1494947239837/sites/revistaap/img/2017/05/16/manager_fondo_inveresion.jpg">
+			</div>
+			<a ><img class="circle" src="https://icon-icons.com/icons2/1144/PNG/512/user_80789.png"></a>
+			<a ><span class="white-text name">Proyecto: {{proyecto.name}}</span></a>
+			<a ><span class="white-text email">{{email}}</span></a>
+		</div></li>
+	<li><a [routerLink]="['preview']"><i class="material-icons">cloud</i>Preview</a></li>
+		<li><a [routerLink]="['stakeholder']"><i class="material-icons">cloud</i>Stakeholders</a></li>
+		<li><a [routerLink]="['goal']"><i class="material-icons">cloud</i>Goals</a></li>
+		<li><a [routerLink]="['softgoal']"><i class="material-icons">cloud</i>Softgoals</a></li>
+		<li><a [routerLink]="['nfr']"><i class="material-icons">cloud</i>NF-Requeriments</a></li>
+	</ul>
+
+ </div>
+ <div class="col s9">
+  <router-outlet></router-outlet>
+ </div>
+

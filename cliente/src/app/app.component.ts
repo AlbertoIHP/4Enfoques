@@ -23,7 +23,7 @@ export class AppComponent implements OnInit{
 	ngOnInit() {
 		if(localStorage.getItem('currentUser')){
 		this.logged = true;
-    this.modalActions = new EventEmitter<string|MaterializeAction>();
+	this.modalActions = new EventEmitter<string|MaterializeAction>();
 	}else{
 		this.logged = false;
 		}
@@ -41,21 +41,21 @@ export class AppComponent implements OnInit{
 
 
   openModal() {
-        var userId = JSON.parse(localStorage.getItem('currentId'));
-        this.userService.getUser(userId).subscribe(data => {
+		var userId = JSON.parse(localStorage.getItem('currentId'));
+		this.userService.getUser(userId).subscribe(data => {
 
-        this.currentUser = data;
-        this.currentUser = this.currentUser.data;
-        console.log(this.currentUser);
-        this.modalActions.emit({action:"modal",params:['open']})
+		this.currentUser = data;
+		this.currentUser = this.currentUser.data;
+		console.log(this.currentUser);
+		this.modalActions.emit({action:"modal",params:['open']})
 
-      });
+	  });
 
   }
 
   closeModal() {
 
-    this.modalActions.emit({action:"modal",params:['close']});
+	this.modalActions.emit({action:"modal",params:['close']});
   }
 
 	clickear(){
@@ -71,14 +71,14 @@ export class AppComponent implements OnInit{
 
 	editarPerfil(){
 
-    var userId = JSON.parse(localStorage.getItem('currentId'));
+	var userId = JSON.parse(localStorage.getItem('currentId'));
 
-    this.userService.editUser(this.currentUser, userId).subscribe(data => {
-        console.log(data);
-        console.log(this.currentUser);
-        this.modalActions.emit({action:"toast",params:[['Actualizando informacion <img style="width: 60px; height: 60px; max-width: 60px; max-height: 60px;  " src="../assets/loading.gif">'],1000]});
-        this.modalActions.emit({action:"modal",params:['close']});
+	this.userService.editUser(this.currentUser, userId).subscribe(data => {
+		console.log(data);
+		console.log(this.currentUser);
+		this.modalActions.emit({action:"toast",params:[['Actualizando informacion <img style="width: 60px; height: 60px; max-width: 60px; max-height: 60px;  " src="../assets/loading.gif">'],1000]});
+		this.modalActions.emit({action:"modal",params:['close']});
 
-      });
+	  });
 	}
 }

@@ -7,31 +7,35 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent }   from '../login/login.component';
 import { HomeComponent }   from '../home/home.component';
 import { ProjectmanagerComponent }   from '../projectmanager/projectmanager.component';
+import { PreviewComponent } from '../projectmanager/preview/preview.component';
+import { StakeholderComponent } from '../projectmanager/stakeholder/stakeholder.component';
+import { NfrComponent } from '../projectmanager/nfr/nfr.component';
+import { GoalComponent } from '../projectmanager/goal/goal.component';
+import { SoftgoalComponent } from '../projectmanager/softgoal/softgoal.component';
 
 //Se declaran como constantes todas las rutas con sus respectivos nombres
 const routes: Routes = [
-
 	{ path: '',  component: LoginComponent },
 	{ path: 'home',  component: HomeComponent },
-  { path: 'project',  component: ProjectmanagerComponent }
+  { path: 'project',  component: ProjectmanagerComponent,
+	children: [
+	  { path: '', component: PreviewComponent},
+	  { path: 'stakeholder', component: StakeholderComponent },
+  	{ path: 'goal', component: GoalComponent },
+  	{ path: 'softgoal', component: SoftgoalComponent },
+  	{ path: 'nfr', component: NfrComponent },
+    { path: 'preview', component: PreviewComponent }
+	]
+   }
 
 
 ];
 
-//Se importan las rutas declaradas como constantes, y se exportan al modulo para ser utilziados por la vista principal
-@NgModule({
-	imports: [
-	RouterModule.forRoot(routes)
-	],
-	exports: [
-	RouterModule
-	]
-})
+export const appRoutingProviders: any[] = [
 
+];
 
-
-export class AppRoutingModule {}
-
+export const routing = RouterModule.forRoot(routes);
 
 /*
 Copyright 2017 Google Inc. All Rights Reserved.

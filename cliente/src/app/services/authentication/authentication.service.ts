@@ -14,8 +14,8 @@ export class AuthenticationService {
   public options;
 
 	constructor(private http: Http) {
-    this.headers = new Headers({ 'Content-Type': 'application/json'});
-    this.options = new RequestOptions({ headers: this.headers });
+	this.headers = new Headers({ 'Content-Type': 'application/json'});
+	this.options = new RequestOptions({ headers: this.headers });
 
 		console.log("Definiendo usuario actual desde el localstorage");
 		// set token if saved in local storage
@@ -61,7 +61,7 @@ export class AuthenticationService {
 			{
 
 
-        console.log("Guardando token en el localstorage");
+		console.log("Guardando token en el localstorage");
 				if (response.ok) {
 
 				/**
@@ -71,7 +71,7 @@ export class AuthenticationService {
 						this.token = token;
 				  localStorage.setItem('currentUser', JSON.stringify({ email: username, token: token }));
 
-          console.log("Execucion finalizada ");
+		  console.log("Execucion finalizada ");
 						return true;
 				}else{
 						return false;
@@ -95,6 +95,7 @@ export class AuthenticationService {
 		this.token = null;
 
 		localStorage.removeItem('currentUser');
-	localStorage.removeItem('currentId');
+	  localStorage.removeItem('currentId');
+    localStorage.removeItem('projectId');
 	}
 }

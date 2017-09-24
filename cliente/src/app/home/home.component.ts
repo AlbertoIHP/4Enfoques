@@ -39,6 +39,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
 	obtenerProyectos(id){
 
+    console.log("Obteniendo todos los proyectos")
 		this.userService.getProjects().subscribe(data => {
 
 							this.projects = data;
@@ -46,9 +47,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
 							var totalProyectos = [];
 
-
+              console.log("Buscando todos los proyectos del usuario registrado");
 							for (let x = 0 ; x < this.projects.length ; x++){
 								if(this.projects[x].users_id === id){
+                  console.log("Se encontraron todos los proyectos del usuario");
 									totalProyectos.push(this.projects[x]);
 
 								}
@@ -68,32 +70,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
 			this.nuevoProyecto={id: Date.now(), name: "", text: "", area: "", date: "", users_id: 0};
 			this.areaOptions = [{value: "Salud", name: "Hospitales"}, {value:"Educacion", name: "Colegio particular"}];
 
-
-			this.userService.getUsers().subscribe(data => {
-
-				this.users = data;
-				this.users = this.users.data;
-				var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-				currentUser = currentUser.email;
-
-				for (let x = 0 ; x < this.users.length ; x++){
-
-
-					if(this.users[x].email === currentUser){
-						var idUsuario = this.users[x].id;
-						localStorage.setItem('currentId', JSON.stringify(idUsuario));
-
-						this.obtenerProyectos(idUsuario);
-
-
-					}
-
-				}
-
-			});
-
-
-
 		}else{
 			console.log("Acceso denegado");
 			this.router.navigate(['']);
@@ -109,6 +85,30 @@ export class HomeComponent implements OnInit, AfterViewInit {
 	}
 
 	ngAfterViewInit() {
+    console.log("Obteniendo todos los usuarios");
+	  this.userService.getUsers().subscribe(data => {
+
+		this.users = data;
+		this.users = this.users.data;
+		var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+		currentUser = currentUser.email;
+
+		for (let x = 0 ; x < this.users.length ; x++){
+
+
+		  if(this.users[x].email === currentUser){
+			var idUsuario = this.users[x].id;
+			localStorage.setItem('currentId', JSON.stringify(idUsuario));
+      console.log("Se ha encontrado el id del usuario logeado");
+			this.obtenerProyectos(idUsuario);
+
+
+		  }
+
+		}
+
+	  });
+
 		this.tapTargetActions.emit({action:"tapTarget",params:["open"]})
 		setTimeout(() => {this.tapTargetActions.emit({action:"tapTarget",params:["close"]})}, 3000);
 	}
@@ -146,7 +146,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 	}
 
 	editarProyecto(id){
-    localStorage.setItem('projectId', JSON.stringify(id));
+	localStorage.setItem('projectId', JSON.stringify(id));
 		this.router.navigate(['project']);
 	}
 

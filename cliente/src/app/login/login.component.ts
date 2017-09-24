@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
 						this.closeModal();
 						this.iniciosesion.email=this.nuevoUsuario.email;
 						this.iniciosesion.password=this.nuevoUsuario.password;
-			this.login();
+			      this.login();
 						this.mainScreen.setLog(true);
 
 				},
