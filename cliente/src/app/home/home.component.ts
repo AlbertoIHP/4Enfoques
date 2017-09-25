@@ -34,8 +34,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
 		date: ""
 	};
 
-	modalActions1 :any;
-	modalActions2 :any;
+	modalActions1: any;
+	modalActions2: any;
 	areaOptions : any;
 	users: any = {};
 	projects: any = {};
@@ -173,7 +173,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 			});
 	}
 
-		iniciarFormulario(){
+	iniciarFormulario(){
 
 		this.abrirFormulario();
 	}

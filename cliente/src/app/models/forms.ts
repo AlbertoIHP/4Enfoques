@@ -4,8 +4,17 @@ export class ProjectForm {
 	date: string;
 }
 
-export class Form2 {
+export class StakeholderForm {
 	id: number;
 	description: string;
-	date: string;
+}
+
+export class GoalForm {
+	id: number;
+	description: string;
+}
+
+export class SoftGoalForm {
+	id: number;
+	description: string;
 }

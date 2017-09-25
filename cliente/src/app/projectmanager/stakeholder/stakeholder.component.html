@@ -1,85 +1,103 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col s12" style="text-align: center;">
-            <h4>Stakeholders disponible para el proyecto</h4>
-        </div>
-        <div class="col s12">
-            <table>
-                <thead>
-                    <tr>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col s12" style="text-align: center;">
+                <h4>Stakeholders disponible para el proyecto</h4>
+            </div>
+            <div class="col s12">
+                <table>
+                    <thead>
+                        <tr>
                             <th>Nombre</th>
                             <th>Descripcion</th>
                             <th>funcion</th>
                             <th>Profesion</th>
                             <th>Acciones</th>
-                    </tr>
-                </thead>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                    <tr *ngFor="let stake of stakeholders">
-                        <td>{{ stake.name }}</td>
-                        <td>{{ stake.decription }}</td>
-                        <td>{{ stake.function }}</td>
-                        <td>{{ stake.profession }}</td>
-                        <td>
-                        <div class="row">
-                            <div class="col s6"><a style="width: 100%" class="waves-effect waves-light btn" (click)="editarStake(stake.id)" ><i style="margin-left: 41%; " class="material-icons left">edit</i></a></div>
-                            <div class="col s6"><a style="width: 100%;" class="waves-effect waves-light btn" (click)="borrarStake(stake.id)"><i style="margin-left: 41%; " class="material-icons left">delete</i></a></div>
-                        </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                    <tbody>
+                        <tr *ngFor="let stake of stakeholders">
+                            <td>{{ stake.name }}</td>
+                            <td>{{ stake.decription }}</td>
+                            <td>{{ stake.function }}</td>
+                            <td>{{ stake.profession }}</td>
+                            <td>
+                                <div class="row">
+                                    <div class="col s6"><a style="width: 100%" class="waves-effect waves-light btn" (click)="editarStake(stake.id)" ><i style="margin-left: 41%; " class="material-icons left">edit</i></a></div>
+                                    <div class="col s6"><a style="width: 100%;" class="waves-effect waves-light btn" (click)="borrarStake(stake.id)"><i style="margin-left: 41%; " class="material-icons left">delete</i></a></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
 
-</div>
-
-
-            <div class="fixed-action-btn horizontal click-to-toggle" >
-                <a (click)="openModal()" id="menu" class="btn-floating btn-large red">
-                <i class="material-icons">add</i></a>
-            </div>
+    <div class="fixed-action-btn horizontal click-to-toggle" >
+        <a (click)="iniciarFormulario()" id="menu" class="btn-floating btn-large red">
+            <i class="material-icons">add</i></a>
+        </div>
 
 
 
-    <!-- Modal Structure -->
-    <div id="modal1" class="modal bottom-sheet" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal bottom-sheet" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions2">
 
             <div class="modal-content">
 
 
-            <div class="row">
-                <div class="col s3 m3 l3">
-                    <label for="name">Nombre</label>
-                    <input id="name" name="name" type="text" [(ngModel)]="nuevoStakeholder.name">
+                <div class="row">
+                    <div class="col s3 m3 l3">
+                        <label for="name">Nombre</label>
+                        <input id="name" name="name" type="text" [(ngModel)]="nuevoStakeholder.name">
+                    </div>
+                    <div class="col s3 m3 l3">
+                        <label for="description">Descripcion</label>
+                        <input id="description" name="description" type="text" [(ngModel)]="nuevoStakeholder.decription">
+                    </div>
+                    <div class="col s3 m3 l3">
+                        <label for="function">Funcion</label>
+                        <input id="function" name="function" type="text" [(ngModel)]="nuevoStakeholder.function">
+                    </div>
+                    <div class="col s3 m3 l3">
+                        <label for="profession">Profesion</label>
+                        <input id="profession" name="profession" type="text" [(ngModel)]="nuevoStakeholder.profession">
+                    </div>
                 </div>
-                <div class="col s3 m3 l3">
-                    <label for="description">Descripcion</label>
-                    <input id="description" name="description" type="text" [(ngModel)]="nuevoStakeholder.decription">
-                </div>
-                <div class="col s3 m3 l3">
-                    <label for="function">Funcion</label>
-                    <input id="function" name="function" type="text" [(ngModel)]="nuevoStakeholder.function">
-                </div>
-                <div class="col s3 m3 l3">
-                    <label for="profession">Profesion</label>
-                    <input id="profession" name="profession" type="text" [(ngModel)]="nuevoStakeholder.profession">
-                </div>
-            </div>
 
 
             </div>
 
 
             <div class="modal-footer">
-            <a class="waves-effect waves-green red accent-1 btn-flat" (click)="closeModal()">Cerrar</a>
-            <button (click)="crearStakeholder()" class="btn waves-effect waves-green btn-flat" type="submit" name="action">Agregar
+                <a class="waves-effect waves-green red accent-1 btn-flat" (click)="closeModal()">Cerrar</a>
+                <button (click)="crearStakeholder()" class="btn waves-effect waves-green btn-flat" type="submit" name="action">Agregar
                     <i class="material-icons right">send</i>
                 </button>
             </div>
+        </div>
 
 
-    </div>
 
+        <!-- Modal formulario -->
+        <div id="formulario" class="modal modal-fixed-footer" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions1">
+            <form class="col s12" (ngSubmit)="c.form.valid && enviarFormulario()" #c="ngForm">
+                <div class="modal-content">
+                    <h4>Ayuda creación de nuevo stakeholder</h4>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="descProyecto" name="descProyecto" class="materialize-textarea validate" [attr.data-tooltip]="tooltipText" [(ngModel)]="nuevoFormulario.description" #descProyecto="ngModel"></textarea>
+                            <label for="descProyecto">Por favor describa a su stakeholder</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="waves-effect waves-green red accent-1 btn-flat" (click)="cerrarFormulario()">No necesito ayuda</a>
+                    <button class="btn waves-effect waves-green btn-flat" type="submit" name="action">Enviar
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </form>
+        </div>

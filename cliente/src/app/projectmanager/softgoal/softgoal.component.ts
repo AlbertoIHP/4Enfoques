@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import {ProjectService} from '../../services/project/project.service';
 import {Softgoal} from '../../models/softgoal';
 import {Goal} from '../../models/goal';
+import {SoftGoalForm} from '../../models/forms';
 import {MaterializeAction} from "angular2-materialize";
 declare var Materialize:any;
 
@@ -13,10 +14,18 @@ declare var Materialize:any;
 })
 export class SoftgoalComponent implements OnInit {
 	softgoals: Softgoal[] = [];
-  modalActions: any;
   actualGoal: Goal = {id: Date.now(), name: "", description: "", relevance: "", stakeholders_id: 0};
   nuevoSoftgoal: Softgoal = {id: Date.now(), name: "", description: "", relevance: "", goals_id: JSON.parse(localStorage.getItem('goalId'))};
 
+  nuevoFormulario: SoftGoalForm = 
+  {
+    id: Date.now(),
+    description: ""
+  };
+
+  modalActions1: any;
+  modalActions2: any;
+  forms : any; 
 
 	constructor(private router: Router,public projectservice: ProjectService)
   {
@@ -27,6 +36,7 @@ export class SoftgoalComponent implements OnInit {
 
           this.actualGoal = todos;
           });
+          this.modalActions1 = new EventEmitter<string|MaterializeAction>();
     }
   }
 
@@ -60,7 +70,7 @@ obtenerSoftgoals(){
 
 	ngOnInit() {
 		if(localStorage.getItem('currentUser')){
-      this.modalActions = new EventEmitter<string|MaterializeAction>();
+      this.modalActions2 = new EventEmitter<string|MaterializeAction>();
       this.obtenerSoftgoals();
 		}else{
 			console.log("Acceso denegado");
@@ -81,15 +91,15 @@ obtenerSoftgoals(){
  editarGoal(){
 
     var goalId = JSON.parse(localStorage.getItem('goalId'));
-    this.modalActions.emit({action:"toast",params:[['Actualizando informacion <img style="width: 60px; height: 60px; max-width: 60px; max-height: 60px;  " src="../assets/loading.gif">'],1000]});
+    this.modalActions2.emit({action:"toast",params:[['Actualizando informacion <img style="width: 60px; height: 60px; max-width: 60px; max-height: 60px;  " src="../assets/loading.gif">'],1000]});
 
     this.projectservice.editGoal(this.actualGoal, goalId).subscribe(data => {
     console.log(data);
     if(data.success === true){
-      this.modalActions.emit({action:"toast",params:[['Editado exitosamente'],2000]});
+      this.modalActions2.emit({action:"toast",params:[['Editado exitosamente'],2000]});
 
     }else{
-      this.modalActions.emit({action:"toast",params:[['Error al editar'],2000]});
+      this.modalActions2.emit({action:"toast",params:[['Error al editar'],2000]});
     }
 
     });
@@ -99,24 +109,24 @@ obtenerSoftgoals(){
 
 
   openModal() {
-    this.modalActions.emit({action:"modal",params:['open']});
+    this.modalActions2.emit({action:"modal",params:['open']});
     }
 
   closeModal() {
-    this.modalActions.emit({action:"modal",params:['close']});
+    this.modalActions2.emit({action:"modal",params:['close']});
     }
 
   crearSoftgoal(){
-     this.modalActions.emit({action:"toast",params:[['Agregando Goal <img style="width: 60px; height: 60px; max-width: 60px; max-height: 60px;  " src="../assets/loading.gif">'],1000]});
+     this.modalActions2.emit({action:"toast",params:[['Agregando Goal <img style="width: 60px; height: 60px; max-width: 60px; max-height: 60px;  " src="../assets/loading.gif">'],1000]});
 
      this.projectservice.addSoftGoal(this.nuevoSoftgoal).subscribe(data => {
        if(data.success === true){
-         this.modalActions.emit({action:"toast",params:[['Agregado exitosamente'],2000]});
+         this.modalActions2.emit({action:"toast",params:[['Agregado exitosamente'],2000]});
          this.obtenerSoftgoals();
          this.closeModal();
          this.nuevoSoftgoal= {id: Date.now(), name: "", description: "", relevance: "", goals_id: JSON.parse(localStorage.getItem('goalId'))};
        }else{
-         this.modalActions.emit({action:"toast",params:[['Error al Agregar'],2000]});
+         this.modalActions2.emit({action:"toast",params:[['Error al Agregar'],2000]});
        }
      });
    }
@@ -124,16 +134,53 @@ obtenerSoftgoals(){
 
 borrarSoftgoal(id)
   {
-      this.modalActions.emit({action:"toast",params:[['Borrando Goal <img style="width: 60px; height: 60px; max-width: 60px; max-height: 60px;  " src="../assets/loading.gif">'],1000]});
+      this.modalActions2.emit({action:"toast",params:[['Borrando Goal <img style="width: 60px; height: 60px; max-width: 60px; max-height: 60px;  " src="../assets/loading.gif">'],1000]});
           this.projectservice.deleteSoftGoal(id).subscribe(data => {
             if(data.success === true){
-             this.modalActions.emit({action:"toast",params:[['Eliminado exitosamente'],2000]});
+             this.modalActions2.emit({action:"toast",params:[['Eliminado exitosamente'],2000]});
              this.obtenerSoftgoals();
              this.closeModal();
            }else{
-             this.modalActions.emit({action:"toast",params:[['Error al eliminar'],2000]});
+             this.modalActions2.emit({action:"toast",params:[['Error al eliminar'],2000]});
            }
           });
     }
+
+  iniciarFormulario(){
+
+    this.abrirFormulario();
+  }
+
+  enviarFormulario() {
+    console.log(JSON.stringify(this.nuevoFormulario));
+
+    var descripcion = this.nuevoFormulario.description;
+    var res = descripcion.split(" ", 3);
+
+    this.nuevoSoftgoal.id = this.nuevoFormulario.id;
+    this.nuevoSoftgoal.name = res[0];
+    this.nuevoSoftgoal.description = descripcion;
+    this.nuevoSoftgoal.relevance = res[1];
+    this.nuevoSoftgoal.goals_id = JSON.parse(localStorage.getItem('goalId'));
+
+    this.modalActions1.emit({action:"toast",params:[['Procesando formulario  <img style="width: 60px; height: 60px; max-width: 60px; max-height: 60px;  " src="../assets/loading.gif">'],1000]});
+    this.cerrarFormulario();
+
+    this.nuevoFormulario =
+    {
+      id: Date.now(),
+      description: "",
+    };
+
+
+  }
+
+  abrirFormulario() {
+    this.modalActions1.emit({action:"modal",params:['open']});
+  }
+  cerrarFormulario() {
+    this.modalActions1.emit({action:"modal",params:['close']});
+    this.openModal();
+  }
 
 }
