@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import {MaterializeAction} from "angular2-materialize";
 declare var Materialize:any;
 import { Project } from '../models/project';
+import { ProjectForm } from '../models/forms';
 import { UserService } from '../services/user/user.service';
 import { ProjectService } from '../services/project/project.service';
 
@@ -26,16 +27,26 @@ export class HomeComponent implements OnInit, AfterViewInit {
 		users_id: 0
 	};
 
-	modalActions :any;
+	nuevoFormulario: ProjectForm = 
+	{
+		id: Date.now(),
+		description: "",
+		date: ""
+	};
+
+	modalActions1 :any;
+	modalActions2 :any;
 	areaOptions : any;
 	users: any = {};
 	projects: any = {};
 	userProjects: any = [];
+	forms: any = {};
 
 
 	constructor(public projectservice: ProjectService, public mainScreen: AppComponent, private router: Router, private userService: UserService) {
 			this.tapTargetActions = new EventEmitter<MaterializeAction>();
-			this.modalActions = new EventEmitter<string|MaterializeAction>();
+			this.modalActions1 = new EventEmitter<string|MaterializeAction>();
+			this.modalActions2 = new EventEmitter<string|MaterializeAction>();
 	}
 
 	obtenerProyectos(id){
@@ -82,11 +93,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
 	}
 
 	openModal() {
-		this.modalActions.emit({action:"modal",params:['open']});
+		this.modalActions2.emit({action:"modal",params:['open']});
 	}
 
 	closeModal() {
-		this.modalActions.emit({action:"modal",params:['close']});
+		this.modalActions2.emit({action:"modal",params:['close']});
 	}
 
 	ngAfterViewInit() {
@@ -136,7 +147,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
 			});
 
-	 this.modalActions.emit({action:"toast",params:[['Agregando proyecto  <img style="width: 60px; height: 60px; max-width: 60px; max-height: 60px;  " src="../assets/loading.gif">'],1000]});
+	 this.modalActions2.emit({action:"toast",params:[['Agregando proyecto  <img style="width: 60px; height: 60px; max-width: 60px; max-height: 60px;  " src="../assets/loading.gif">'],1000]});
 		 this.closeModal();
 
 	   this.nuevoProyecto =
@@ -160,6 +171,42 @@ export class HomeComponent implements OnInit, AfterViewInit {
 			 console.log(data);
 			 this.obtenerProyectos(JSON.parse(localStorage.getItem('currentId')));
 			});
+	}
+
+		iniciarFormulario(){
+
+		this.abrirFormulario();
+	}
+
+	enviarFormulario() {
+		console.log(JSON.stringify(this.nuevoFormulario));
+
+		this.nuevoProyecto.id = this.nuevoFormulario.id;
+		this.nuevoProyecto.name = this.nuevoFormulario.description;
+		this.nuevoProyecto.text = this.nuevoFormulario.description;
+		this.nuevoProyecto.date = this.nuevoFormulario.date;
+		this.nuevoProyecto.users_id = JSON.parse(localStorage.getItem('currentId'));
+
+
+	 this.modalActions1.emit({action:"toast",params:[['Procesando formulario  <img style="width: 60px; height: 60px; max-width: 60px; max-height: 60px;  " src="../assets/loading.gif">'],1000]});
+		 this.cerrarFormulario();
+
+	   this.nuevoFormulario =
+		{
+		  id: Date.now(),
+			description: "",
+			date: ""
+		};
+
+
+	}
+
+	abrirFormulario() {
+		this.modalActions1.emit({action:"modal",params:['open']});
+	}
+	cerrarFormulario() {
+		this.modalActions1.emit({action:"modal",params:['close']});
+		this.openModal();
 	}
 
 
