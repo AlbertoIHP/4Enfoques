@@ -311,13 +311,29 @@ class SoftgoalNfrAPIController extends AppBaseController
 
 
 	public function formProject(Request $request){
-		$input = $request->all();
+		$objetoFormulario = $request->all();
 
 		///AQUI VA LA LOGICA DE LENGUAJE NATURAL
 
 
-		//SE DEBE DEVOLVER UN OBJETO DE TIPO PROJECT
-		return $this->sendResponse($input, 'Softgoal Nfr saved successfully');
+
+
+
+		//SE CREA UN NUEVO STAKEHOLDER
+		$nuevoProject = "";
+
+
+
+		//SE CREA EL REGISTRO
+		$project = $this->StakeholderRepository->create($nuevoProject);
+
+	
+
+
+
+		//SE DEBE DEVOLVER UN OBJETO DE TIPO STAKEHOLDER
+		return $this->sendResponse($project->toArray(), 'El formulario ha determinado el stakeholder exitosamente');
+
 
 	}
 
@@ -342,30 +358,62 @@ class SoftgoalNfrAPIController extends AppBaseController
 
 
 
-		//SE DEBE DEVOLVER UN OBJETO DE TIPO PROJECT
+		//SE DEBE DEVOLVER UN OBJETO DE TIPO STAKEHOLDER
 		return $this->sendResponse($stakeholder->toArray(), 'El formulario ha determinado el stakeholder exitosamente');
 
 	}
 
 	public function formGoal(Request $request){
-		$input = $request->all();
+		$objetoFormulario = $request->all();
 
 		///AQUI VA LA LOGICA DE LENGUAJE NATURAL
 
 
-		//SE DEBE DEVOLVER UN OBJETO DE TIPO goal
-		return $this->sendResponse($input, 'Softgoal Nfr saved successfully');
+
+
+
+		//SE CREA UN NUEVO Goal
+		$nuevoGoal = "";
+
+
+
+		//SE CREA EL REGISTRO
+		$goal = $this->StakeholderRepository->create($nuevoGoal);
+
+	
+
+
+
+		//SE DEBE DEVOLVER UN OBJETO DE TIPO GOAL
+		return $this->sendResponse($goal->toArray(), 'El formulario ha determinado el stakeholder exitosamente');
+
 
 	}
 
 	public function formSoftgoal(Request $request){
-		$input = $request->all();
+		$objetoFormulario = $request->all();
 
 		///AQUI VA LA LOGICA DE LENGUAJE NATURAL
 
 
-		//SE DEBE DEVOLVER UN OBJETO DE TIPO softgoal
-		return $this->sendResponse($input, 'Softgoal Nfr saved successfully');
+
+
+
+		//SE CREA UN NUEVO Goal
+		$nuevoSoftgoal = "";
+
+
+
+		//SE CREA EL REGISTRO
+		$softgoal = $this->StakeholderRepository->create($nuevoSoftgoal);
+
+	
+
+
+
+		//SE DEBE DEVOLVER UN OBJETO DE TIPO SOFTGOAL
+		return $this->sendResponse($softgoal->toArray(), 'El formulario ha determinado el stakeholder exitosamente');
+
 
 	}
 }

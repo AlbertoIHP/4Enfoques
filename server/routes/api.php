@@ -42,6 +42,7 @@ Route::group(['middleware' => ['cors', 'jwt.auth']], function () {
 
 	Route::put('/v1/softgoalNfrs','SoftgoalNfrAPIController@destroy');
 
+	//Rutas a los formularios
 	Route::post('/v1/forms/project','SoftgoalNfrAPIController@formProject');
 	Route::post('/v1/forms/stakeholder','SoftgoalNfrAPIController@formStakeholder');
 	Route::post('/v1/forms/goal','SoftgoalNfrAPIController@formGoal');
