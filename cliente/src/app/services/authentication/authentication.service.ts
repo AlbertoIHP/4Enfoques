@@ -96,6 +96,14 @@ export class AuthenticationService {
 
 		localStorage.removeItem('currentUser');
 	  localStorage.removeItem('currentId');
-    localStorage.removeItem('projectId');
+	  localStorage.removeItem('projectId');
+    localStorage.removeItem('currentStakeholders');
+    localStorage.removeItem('stakeholderId');
+    localStorage.removeItem('currentGoals');
+    localStorage.removeItem('currentSoftgoals');
+    localStorage.removeItem('goalId');
+    localStorage.removeItem('allNfrs');
+    localStorage.removeItem('softgoalId');
+
 	}
 }

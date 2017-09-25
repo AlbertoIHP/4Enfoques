@@ -23,7 +23,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //Grupo de rutas que tienen un middleware jwt.auth
 Route::group(['middleware' => ['cors', 'jwt.auth']], function () {
-	
+
+});
+
+
+
+
+Route::group(['middleware' => ['cors']], function(){
+	Route::post('/login', 'AuthController@userAuth');
+	Route::post('/v1/users', 'UserAPIController@store');
+
 	Route::resource('v1/users', 'UserAPIController');
 
 	Route::resource('v1/projects', 'ProjectAPIController');
@@ -37,15 +46,7 @@ Route::group(['middleware' => ['cors', 'jwt.auth']], function () {
 	Route::resource('v1/nfrs', 'NfrAPIController');
 
 	Route::resource('v1/projects', 'ProjectAPIController');
+
+	Route::resource('v1/softgoalNfrs', 'SoftgoalNfrAPIController');
 });
 
-
-
-
-Route::group(['middleware' => ['cors']], function(){
-	Route::post('/login', 'AuthController@userAuth');
-
-	Route::post('/v1/users', 'UserAPIController@store');
-		
-	
-});

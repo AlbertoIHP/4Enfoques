@@ -1,3 +1,21 @@
-<p>
-  nfr works!
-</p>
+      <table>
+        <thead>
+          <tr>
+              <th>Nombre</th>
+              <th>Descripcion</th>
+              <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let nfr of nfrs">
+            <td>{{ nfr.name }}</td>
+            <td>{{ nfr.description }}</td>
+            <td>
+            <div class="row">
+              <div class="col s12"><a style="width: 100%;" class="waves-effect waves-light btn" (click)="borrarnfr(nfr.id)"><i style="margin-left: 41%; " class="material-icons left">delete</i></a></div>
+            </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>

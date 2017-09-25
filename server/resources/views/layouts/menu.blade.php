@@ -22,3 +22,7 @@
     <a href="{!! route('nfrs.index') !!}"><i class="fa fa-edit"></i><span>Nfrs</span></a>
 </li>
 
+<li class="{{ Request::is('softgoalNfrs*') ? 'active' : '' }}">
+    <a href="{!! route('softgoalNfrs.index') !!}"><i class="fa fa-edit"></i><span>Softgoal Nfrs</span></a>
+</li>
+

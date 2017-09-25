@@ -6,6 +6,7 @@ import {MaterializeAction} from "angular2-materialize";
 declare var Materialize:any;
 import { Project } from '../models/project';
 import { UserService } from '../services/user/user.service';
+import { ProjectService } from '../services/project/project.service';
 
 @Component({
 	selector: 'app-home',
@@ -32,14 +33,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
 	userProjects: any = [];
 
 
-	constructor(public mainScreen: AppComponent, private router: Router, private userService: UserService) {
+	constructor(public projectservice: ProjectService, public mainScreen: AppComponent, private router: Router, private userService: UserService) {
 			this.tapTargetActions = new EventEmitter<MaterializeAction>();
 			this.modalActions = new EventEmitter<string|MaterializeAction>();
 	}
 
 	obtenerProyectos(id){
 
-    console.log("Obteniendo todos los proyectos")
+	console.log("Obteniendo todos los proyectos")
 		this.userService.getProjects().subscribe(data => {
 
 							this.projects = data;
@@ -47,10 +48,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
 							var totalProyectos = [];
 
-              console.log("Buscando todos los proyectos del usuario registrado");
+			  console.log("Buscando todos los proyectos del usuario registrado");
 							for (let x = 0 ; x < this.projects.length ; x++){
 								if(this.projects[x].users_id === id){
-                  console.log("Se encontraron todos los proyectos del usuario");
+				  console.log("Se encontraron todos los proyectos del usuario");
 									totalProyectos.push(this.projects[x]);
 
 								}
@@ -69,7 +70,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
 			this.openAdvise= false;
 			this.nuevoProyecto={id: Date.now(), name: "", text: "", area: "", date: "", users_id: 0};
 			this.areaOptions = [{value: "Salud", name: "Hospitales"}, {value:"Educacion", name: "Colegio particular"}];
-
+      this.projectservice.getNfrs().subscribe(data => {
+            var todos: any = data;
+            todos = todos.data;
+            localStorage.setItem('allNfrs', JSON.stringify(todos));
+      });
 		}else{
 			console.log("Acceso denegado");
 			this.router.navigate(['']);
@@ -85,7 +90,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 	}
 
 	ngAfterViewInit() {
-    console.log("Obteniendo todos los usuarios");
+	console.log("Obteniendo todos los usuarios");
 	  this.userService.getUsers().subscribe(data => {
 
 		this.users = data;
@@ -99,7 +104,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 		  if(this.users[x].email === currentUser){
 			var idUsuario = this.users[x].id;
 			localStorage.setItem('currentId', JSON.stringify(idUsuario));
-      console.log("Se ha encontrado el id del usuario logeado");
+	  console.log("Se ha encontrado el id del usuario logeado");
 			this.obtenerProyectos(idUsuario);
 
 
