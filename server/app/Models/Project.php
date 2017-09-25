@@ -46,61 +46,61 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Project extends Model
 {
-    use SoftDeletes;
+	use SoftDeletes;
 
-    public $table = 'projects';
-    
-    const CREATED_AT = 'created_at';
-    const UPDATED_AT = 'updated_at';
-
-
-    protected $dates = ['deleted_at'];
+	public $table = 'projects';
+	
+	const CREATED_AT = 'created_at';
+	const UPDATED_AT = 'updated_at';
 
 
-    public $fillable = [
-        'name',
-        'text',
-        'area',
-        'date',
-        'users_id'
-    ];
+	protected $dates = ['deleted_at'];
 
-    /**
-     * The attributes that should be casted to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'id' => 'integer',
-        'name' => 'string',
-        'text' => 'string',
-        'area' => 'string',
-        'date' => 'date',
-        'users_id' => 'integer'
-    ];
 
-    /**
-     * Validation rules
-     *
-     * @var array
-     */
-    public static $rules = [
-        
-    ];
+	public $fillable = [
+		'name',
+		'text',
+		'area',
+		'date',
+		'users_id'
+	];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     **/
-    public function user()
-    {
-        return $this->belongsTo(\App\Models\User::class);
-    }
+	/**
+	 * The attributes that should be casted to native types.
+	 *
+	 * @var array
+	 */
+	protected $casts = [
+		'id' => 'integer',
+		'name' => 'string',
+		'text' => 'string',
+		'area' => 'string',
+		'date' => 'date',
+		'users_id' => 'integer'
+	];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     **/
-    public function stakeholders()
-    {
-        return $this->hasMany(\App\Models\Stakeholder::class);
-    }
+	/**
+	 * Validation rules
+	 *
+	 * @var array
+	 */
+	public static $rules = [
+		
+	];
+
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 **/
+	public function user()
+	{
+		return $this->belongsTo(\App\Models\User::class);
+	}
+
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 **/
+	public function stakeholders()
+	{
+		return $this->hasMany(\App\Models\Stakeholder::class);
+	}
 }

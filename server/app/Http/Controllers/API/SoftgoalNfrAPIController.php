@@ -4,14 +4,34 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Requests\API\CreateSoftgoalNfrAPIRequest;
 use App\Http\Requests\API\UpdateSoftgoalNfrAPIRequest;
-use App\Models\SoftgoalNfr;
-use App\Repositories\SoftgoalNfrRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 use DB;
+
+/**
+ **Se traen los modelos y sus respectivos repositorios para crearlos con los formularios
+ **/
+
+use App\Models\SoftgoalNfr;
+use App\Repositories\SoftgoalNfrRepository;
+
+use App\Models\Project;
+use App\Repositories\ProjectRepository;
+
+use App\Models\Stakeholder;
+use App\Repositories\StakeholderRepository;
+
+use App\Models\Goal;
+use App\Repositories\GoalRepository;
+
+use App\Models\Softgoal;
+use App\Repositories\SoftgoalRepository;
+
+
+
 /**
  * Class SoftgoalNfrController
  * @package App\Http\Controllers\API
@@ -287,5 +307,65 @@ class SoftgoalNfrAPIController extends AppBaseController
 
 
 		
+	}
+
+
+	public function formProject(Request $request){
+		$input = $request->all();
+
+		///AQUI VA LA LOGICA DE LENGUAJE NATURAL
+
+
+		//SE DEBE DEVOLVER UN OBJETO DE TIPO PROJECT
+		return $this->sendResponse($input, 'Softgoal Nfr saved successfully');
+
+	}
+
+	public function formStakeholder(Request $request){
+		$objetoFormulario = $request->all();
+
+		///AQUI VA LA LOGICA DE LENGUAJE NATURAL
+
+
+
+
+
+		//SE CREA UN NUEVO STAKEHOLDER
+		$nuevoStakeholder = "";
+
+
+
+		//SE CREA EL REGISTRO
+		$stakeholder = $this->StakeholderRepository->create($nuevoStakeholder);
+
+	
+
+
+
+		//SE DEBE DEVOLVER UN OBJETO DE TIPO PROJECT
+		return $this->sendResponse($stakeholder->toArray(), 'El formulario ha determinado el stakeholder exitosamente');
+
+	}
+
+	public function formGoal(Request $request){
+		$input = $request->all();
+
+		///AQUI VA LA LOGICA DE LENGUAJE NATURAL
+
+
+		//SE DEBE DEVOLVER UN OBJETO DE TIPO goal
+		return $this->sendResponse($input, 'Softgoal Nfr saved successfully');
+
+	}
+
+	public function formSoftgoal(Request $request){
+		$input = $request->all();
+
+		///AQUI VA LA LOGICA DE LENGUAJE NATURAL
+
+
+		//SE DEBE DEVOLVER UN OBJETO DE TIPO softgoal
+		return $this->sendResponse($input, 'Softgoal Nfr saved successfully');
+
 	}
 }

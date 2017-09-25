@@ -41,6 +41,11 @@ Route::group(['middleware' => ['cors', 'jwt.auth']], function () {
 	Route::resource('v1/softgoalNfrs', 'SoftgoalNfrAPIController');
 
 	Route::put('/v1/softgoalNfrs','SoftgoalNfrAPIController@destroy');
+
+	Route::post('/v1/forms/project','SoftgoalNfrAPIController@formProject');
+	Route::post('/v1/forms/stakeholder','SoftgoalNfrAPIController@formStakeholder');
+	Route::post('/v1/forms/goal','SoftgoalNfrAPIController@formGoal');
+	Route::post('/v1/forms/softgoal','SoftgoalNfrAPIController@formSoftgoal');
 });
 
 
