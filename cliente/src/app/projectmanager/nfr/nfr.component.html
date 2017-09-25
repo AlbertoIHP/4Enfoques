@@ -1,3 +1,53 @@
+
+
+
+
+
+
+
+
+<div class="container-fluid">
+  <div class="row" style="text-align: center">
+    <div class="col s11">
+      <h4>Informacion del Softgoal: {{actualSoftgoal.name}}</h4>
+
+    </div>
+    <div class="col s1">
+           <a  (click)="editarSoftgoal()" materialize="tooltip" data-position="bottom" data-delay="10" data-tooltip="Editar stakeholder"  class="btn-floating blue tooltipped"><i class="material-icons ">edit</i></a>
+    </div>
+  </div>
+
+
+    <div class="row">
+      <div class="col s12">Edicion de Informacion</div>
+    </div>
+
+    <div class="row">
+      <div class="col s4">
+      <label for="name">Nombre</label>
+      <input id="name" name="name" type="text" [(ngModel)]="actualSoftgoal.name">
+      </div>
+      <div class="col s4">
+      <label for="description">Descripcion</label>
+      <input id="description" name="description" type="text" [(ngModel)]="actualSoftgoal.description">
+      </div>
+      <div class="col s4">
+      <label for="function">Relevancia</label>
+      <input id="function" name="function" type="text" [(ngModel)]="actualSoftgoal.relevance">
+      </div>
+    </div>
+
+
+  <div class="row" style="text-align: center">
+    <div class="col s12">
+      <h4>NF-Requirements del Softgoal</h4>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col s12">
+
       <table>
         <thead>
           <tr>
@@ -13,9 +63,90 @@
             <td>{{ nfr.description }}</td>
             <td>
             <div class="row">
-              <div class="col s12"><a style="width: 100%;" class="waves-effect waves-light btn" (click)="borrarnfr(nfr.id)"><i style="margin-left: 41%; " class="material-icons left">delete</i></a></div>
+              <div class="col s12"><a style="width: 100%;" class="waves-effect waves-light btn" (click)="borrarNfr(nfr.id)"><i style="margin-left: 41%; " class="material-icons left">delete</i></a></div>
             </div>
             </td>
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="fixed-action-btn horizontal click-to-toggle" >
+    <a (click)="openModal()"  id="menu" class="btn-floating btn-large red">
+    <i class="material-icons">add</i></a>
+  </div>
+
+      <!-- Modal Structure -->
+  <div class="modal bottom-sheet" id="modal"  materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+
+      <div class="modal-content">
+
+
+        <div class="row">
+
+
+        <div class="input-field col s12">
+          <select [(ngModel)]="nuevoNfr.nfrs_id" name="nfr" materialize="material_select" [materializeSelectOptions]="allNfrs">
+
+            <option value="" disabled>Non functional Requirement</option>
+            <option *ngFor="let nfr of allNfrs" [value]="nfr.id" >{{nfr.name}}</option>
+          </select>
+          <label>Seleccione una profesion </label>
+
+
+
+        </div>
+        </div>
+
+
+      </div>
+
+
+      <div class="modal-footer">
+      <a class="waves-effect waves-green red accent-1 btn-flat" (click)="closeModal()">Cerrar</a>
+      <button (click)="agregarNfr()" class="btn waves-effect waves-green btn-flat" type="submit" name="action">Agregar
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

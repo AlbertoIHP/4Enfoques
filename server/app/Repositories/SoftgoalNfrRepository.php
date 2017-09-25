@@ -16,19 +16,20 @@ use InfyOm\Generator\Common\BaseRepository;
 */
 class SoftgoalNfrRepository extends BaseRepository
 {
-    /**
-     * @var array
-     */
-    protected $fieldSearchable = [
-        'nfrs_id',
-        'remember_token'
-    ];
+	/**
+	 * @var array
+	 */
+	protected $fieldSearchable = [
+		'nfrs_id',
+		'softgoals_id',
+		'remember_token'
+	];
 
-    /**
-     * Configure the Model
-     **/
-    public function model()
-    {
-        return SoftgoalNfr::class;
-    }
+	/**
+	 * Configure the Model
+	 **/
+	public function model()
+	{
+		return SoftgoalNfr::class;
+	}
 }

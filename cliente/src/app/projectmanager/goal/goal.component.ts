@@ -55,7 +55,8 @@ export class GoalComponent implements OnInit {
   openModal() {
     this.modalActions.emit({action:"modal",params:['open']});
     }
-    closeModal() {
+
+  closeModal() {
     this.modalActions.emit({action:"modal",params:['close']});
     }
 
@@ -76,17 +77,18 @@ export class GoalComponent implements OnInit {
 
 
 
-	borrarGoal(id){
-    this.modalActions.emit({action:"toast",params:[['Borrando Goal <img style="width: 60px; height: 60px; max-width: 60px; max-height: 60px;  " src="../assets/loading.gif">'],1000]});
-				this.projectservice.deleteGoal(id).subscribe(data => {
-          if(data.success === true){
-           this.modalActions.emit({action:"toast",params:[['Eliminado exitosamente'],2000]});
-           this.obtenerGoals();
-           this.closeModal();
-         }else{
-           this.modalActions.emit({action:"toast",params:[['Error al eliminar'],2000]});
-         }
-        });
+	borrarGoal(id)
+  {
+      this.modalActions.emit({action:"toast",params:[['Borrando Goal <img style="width: 60px; height: 60px; max-width: 60px; max-height: 60px;  " src="../assets/loading.gif">'],1000]});
+  				this.projectservice.deleteGoal(id).subscribe(data => {
+            if(data.success === true){
+             this.modalActions.emit({action:"toast",params:[['Eliminado exitosamente'],2000]});
+             this.obtenerGoals();
+             this.closeModal();
+           }else{
+             this.modalActions.emit({action:"toast",params:[['Error al eliminar'],2000]});
+           }
+          });
 		}
 
 	editarGoal(id){
