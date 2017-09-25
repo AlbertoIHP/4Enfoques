@@ -31,3 +31,5 @@ Route::resource('goals', 'GoalController');
 Route::resource('softgoals', 'SoftgoalController');
 
 Route::resource('nfrs', 'NfrController');
+
+Route::resource('softgoalNfrs', 'SoftgoalNfrController');

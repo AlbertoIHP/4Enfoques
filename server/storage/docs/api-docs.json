@@ -802,6 +802,205 @@
                 }
             }
         },
+        "/softgoalNfrs": {
+            "get": {
+                "tags": [
+                    "SoftgoalNfr"
+                ],
+                "summary": "Get a listing of the SoftgoalNfrs.",
+                "description": "Get all SoftgoalNfrs",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SoftgoalNfr"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "SoftgoalNfr"
+                ],
+                "summary": "Store a newly created SoftgoalNfr in storage",
+                "description": "Store SoftgoalNfr",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "SoftgoalNfr that should be stored",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/SoftgoalNfr"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/SoftgoalNfr"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/softgoalNfrs/{id}": {
+            "get": {
+                "tags": [
+                    "SoftgoalNfr"
+                ],
+                "summary": "Display the specified SoftgoalNfr",
+                "description": "Get SoftgoalNfr",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of SoftgoalNfr",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/SoftgoalNfr"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "SoftgoalNfr"
+                ],
+                "summary": "Update the specified SoftgoalNfr in storage",
+                "description": "Update SoftgoalNfr",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of SoftgoalNfr",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "SoftgoalNfr that should be updated",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/SoftgoalNfr"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/SoftgoalNfr"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "SoftgoalNfr"
+                ],
+                "summary": "Remove the specified SoftgoalNfr from storage",
+                "description": "Delete SoftgoalNfr",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of SoftgoalNfr",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/stakeholders": {
             "get": {
                 "tags": [
@@ -1311,6 +1510,27 @@
                     "description": "goals_id",
                     "type": "integer",
                     "format": "int32"
+                }
+            }
+        },
+        "SoftgoalNfr": {
+            "required": [
+                ""
+            ],
+            "properties": {
+                "softgoals_id": {
+                    "description": "softgoals_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "nfrs_id": {
+                    "description": "nfrs_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "remember_token": {
+                    "description": "remember_token",
+                    "type": "string"
                 }
             }
         },

@@ -2,111 +2,136 @@
 
 
 
-		<div class="row container">
-			<div class="fixed-action-btn horizontal click-to-toggle">
-				<a (click)="crearProyecto()" id="menu" class="btn-floating btn-large red">
+	<div class="row container">
+		<div class="fixed-action-btn horizontal click-to-toggle">
+			<a (click)="iniciarFormulario()" id="menu" class="btn-floating btn-large red">
 				<i class="material-icons">add</i></a>
 			</div>
-		</div>
 
-		  <table>
-		<thead>
-		  <tr>
-			  <th>Nombre</th>
-			  <th>Descripcion</th>
-			  <th>Area</th>
-		<th>Fecha de Termino (Deadline)</th>
-		<th>Acciones</th>
-
-		  </tr>
-		</thead>
-
-		<tbody>
-		  <tr *ngFor="let project of userProjects">
-			<td>{{ project.name }}</td>
-			<td>{{ project.text }}</td>
-	  <td>{{ project.area }}</td>
-	  <td>{{ project.date }}</td>
-	  <td>
-		<div class="row">
-		  <div class="col s6"><a style="width: 100%" class="waves-effect waves-light btn" (click)="editarProyecto(project.id)"><i style="margin-left: 41%; " class="material-icons left">edit</i></a></div>
-		  <div class="col s6"><a style="width: 100%;" class="waves-effect waves-light btn" (click)="borrarProyecto(project.id)"><i style="margin-left: 41%; " class="material-icons left">delete</i></a></div>
-		</div>
-	  </td>
-		  </tr>
-		</tbody>
-	  </table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-	<!-- Modal Structure -->
-	<div id="modal1" class="modal bottom-sheet" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
-
-		<form (ngSubmit)="c.form.valid && agregarProyecto()" #c="ngForm">
-			<div class="modal-content">
+			<div class="row" style="text-align: center"><h4>Mis Proyectos</h4></div>
 
 
 			<div class="row">
+				<table>
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Descripcion</th>
+							<th>Area</th>
+							<th>Fecha de Termino (Deadline)</th>
+							<th>Acciones</th>
 
-				<div class="input-field col s3">
-					<input required  name="name" [(ngModel)]="nuevoProyecto.name" #name="ngModel" id="name" type="text" class="validate" [attr.data-tooltip]="tooltipText">
-					<label for="name">Nombre del proyecto</label>
-				</div>
+						</tr>
+					</thead>
 
-
-				<div class="input-field col s3">
-					<input required   name="description" [(ngModel)]="nuevoProyecto.text" #email="ngModel" id="description" type="text" class="validate" [attr.data-tooltip]="tooltipText">
-					<label for="description">Descripcion</label>
-				</div>
-
-				<div class="input-field col s3">
-					<select required [(ngModel)]="nuevoProyecto.area" name="area" materialize="material_select" [materializeSelectOptions]="areaOptions">
-						<option value="" disabled></option>
-						<option *ngFor="let area of areaOptions" [value]="area.value">{{area.name}}</option>
-					</select>
-					<label>Area seleccionada ({{nuevoProyecto.area}})</label>
-				</div>
-
-		<div class="input-field col s3">
-			   <label for="date">Fecha limite</label>
-			   <input type="text" [(ngModel)]="nuevoProyecto.date" name="date" materialize="pickadate" id="date" [materializeParams]="[{format:'yyyy-mm-dd'}]" />
+					<tbody>
+						<tr *ngFor="let project of userProjects">
+							<td>{{ project.name }}</td>
+							<td>{{ project.text }}</td>
+							<td>{{ project.area }}</td>
+							<td>{{ project.date }}</td>
+							<td>
+								<div class="row">
+									<div class="col s6"><a style="width: 100%" class="waves-effect waves-light btn" (click)="editarProyecto(project.id)"><i style="margin-left: 41%; " class="material-icons left">edit</i></a></div>
+									<div class="col s6"><a style="width: 100%;" class="waves-effect waves-light btn" (click)="borrarProyecto(project.id)"><i style="margin-left: 41%; " class="material-icons left">delete</i></a></div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 
 
 
-			</div>
 
 
-			</div>
 
 
-			<div class="modal-footer">
-			<a class="waves-effect waves-green red accent-1 btn-flat" (click)="closeModal()">Cerrar</a>
-			<button class="btn waves-effect waves-green btn-flat" type="submit" name="action">Añadir proyecto
-					<i class="material-icons right">send</i>
-				</button>
-			</div>
 
 
-		</form>
-	</div>
 
-			<!-- Tap Target Structure -->
-			<div class="tap-target" data-activates="menu" materialize [materializeActions]="tapTargetActions">
-				<div class="tap-target-content">
+
+
+
+
+
+		<!-- Modal Structure -->
+		<div id="modal1" class="modal bottom-sheet" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions2">
+
+			<form (ngSubmit)="c.form.valid && agregarProyecto()" #c="ngForm">
+				<div class="modal-content">
+
+					<div class="row">
+
+						<div class="input-field col s3">
+							<input required  name="name" [(ngModel)]="nuevoProyecto.name" #name="ngModel" id="name" type="text" class="validate" [attr.data-tooltip]="tooltipText">
+							<label for="name">Nombre del proyecto</label>
+						</div>
+
+						<div class="input-field col s3">
+							<input required   name="description" [(ngModel)]="nuevoProyecto.text" #email="ngModel" id="description" type="text" class="validate" [attr.data-tooltip]="tooltipText">
+							<label for="description">Descripcion</label>
+						</div>
+
+						<div class="input-field col s3">
+							<select required [(ngModel)]="nuevoProyecto.area" name="area" materialize="material_select" [materializeSelectOptions]="areaOptions">
+								<option value="" disabled></option>
+								<option *ngFor="let area of areaOptions" [value]="area.value">{{area.name}}</option>
+							</select>
+							<label>Area seleccionada ({{nuevoProyecto.area}})</label>
+						</div>
+
+						<div class="input-field col s3">
+							<label for="date">Fecha limite</label>
+							<input type="text" [(ngModel)]="nuevoProyecto.date" name="date" materialize="pickadate" id="date" [materializeParams]="[{format:'yyyy-mm-dd'}]" />
+						</div>
+					</div>
+				</div>
+
+
+				<div class="modal-footer">
+					<a class="waves-effect waves-green red accent-1 btn-flat" (click)="closeModal()">Cerrar</a>
+					<button class="btn waves-effect waves-green btn-flat" type="submit" name="action">Añadir proyecto
+						<i class="material-icons right">send</i>
+					</button>
+				</div>
+
+
+			</form>
+		</div>
+
+		<!-- Tap Target Structure -->
+		<div class="tap-target" data-activates="menu" materialize [materializeActions]="tapTargetActions">
+			<div class="tap-target-content">
 				<h5>Crear Proyecto</h5>
 				<p>Haga click aqui para crear un nuevo proyecto</p>
-				</div>
 			</div>
+		</div>
+
+		<!-- Modal formulario -->
+		<div id="formulario" class="modal modal-fixed-footer" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions1">
+			<form class="col s12" (ngSubmit)="c.form.valid && enviarFormulario()" #c="ngForm">
+				<div class="modal-content">
+					<h4>Ayuda creación de nuevo proyecto</h4>
+					<div class="row">
+						<div class="input-field col s12">
+							<textarea id="descProyecto" name="descProyecto" class="materialize-textarea validate" [attr.data-tooltip]="tooltipText" [(ngModel)]="nuevoFormulario.description" #descProyecto="ngModel"></textarea>
+							<label for="descProyecto">Por favor describa su proyecto en pocas palabras</label>
+						</div>
+						<div class="input-field col s12">
+							<label for="dateForm">Fecha limite</label>
+							<input type="text" [(ngModel)]="nuevoFormulario.date" name="dateForm" materialize="pickadate" id="date" [materializeParams]="[{format:'yyyy-mm-dd'}]" />
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a class="waves-effect waves-green red accent-1 btn-flat" (click)="cerrarFormulario()">No necesito ayuda</a>
+					<button class="btn waves-effect waves-green btn-flat" type="submit" name="action">Enviar
+						<i class="material-icons right">send</i>
+					</button>
+				</div>
+			</form>
+		</div>
 
 
