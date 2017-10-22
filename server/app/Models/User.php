@@ -6,6 +6,7 @@ use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+
 use Illuminate\Notifications\Notifiable;
 /**
 
@@ -44,9 +45,9 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
 	use SoftDeletes;
-
-	public $table = 'users';
 	
+	protected $table = 'users';
+
 	const CREATED_AT = 'created_at';
 	const UPDATED_AT = 'updated_at';
 
@@ -58,7 +59,9 @@ class User extends Authenticatable
 		'name',
 		'email',
 		'password',
-		'profession'
+		'profession',
+		'confirmation_code',
+		'confirmed'
 	];
 
 	/**
@@ -73,6 +76,7 @@ class User extends Authenticatable
 		'password' => 'string',
 		'profession' => 'string'
 	];
+
 
 	/**
 	 * Validation rules

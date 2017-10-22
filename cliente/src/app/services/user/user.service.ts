@@ -23,7 +23,10 @@ export class UserService {
 		private http: Http,
 		private authenticationService: AuthenticationService) {
 		console.log("Construyendo la cabezera con el token necesario");
+		console.log(this.authenticationService.token);
+
 		this.headers = new Headers({
+
 			'Authorization': 'Bearer ' + this.authenticationService.token,
 			'Content-Type': 'application/json'
 		});
@@ -33,26 +36,26 @@ export class UserService {
 
 	}
 
-  editUser(user: User, id: number){
+	editUser(user: User, id: number){
 	 return this.http.put(this.base+'users/'+id, JSON.stringify(user), this.options).map((res: Response) => res.json());
-  }
+	}
 
-  getUser(id) : Observable<User> {
+	getUser(id) : Observable<User> {
 	return this.http.get(this.base+'users/'+id, this.options).map((res: Response) => res.json());
-  }
+	}
 
 
 	//Este metodo obtiene los usuarios y utiliza la cabezera para el token
 	getUsers(): Observable<User[]> {
-    console.log("Haciendo peticion para obtener todos los usuarios");
-    console.log("el token es: "+this.authenticationService.token);
+	console.log("Haciendo peticion para obtener todos los usuarios");
+	console.log("el token es: "+this.authenticationService.token);
 		return this.http.get(this.base+'users', this.options).map((res: Response) => res.json());
 	}
 
 	//Este metodo obtiene los usuarios y utiliza la cabezera para el token
 	getProjects() : Observable<Project[]>{
-    console.log("Haciendo peticion para obtener todos los proyectos");
-    console.log("el token es: "+this.authenticationService.token);
+	console.log("Haciendo peticion para obtener todos los proyectos");
+	console.log("el token es: "+this.authenticationService.token);
 		return this.http.get(this.base+'projects', this.options).map((res: Response) => res.json());
 	}
 

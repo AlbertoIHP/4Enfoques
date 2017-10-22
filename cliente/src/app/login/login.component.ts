@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
 						this.closeModal();
 						this.iniciosesion.email=this.nuevoUsuario.email;
 						this.iniciosesion.password=this.nuevoUsuario.password;
-			      this.login();
+				  this.login();
 						this.mainScreen.setLog(true);
 
 				},
@@ -119,7 +119,11 @@ export class LoginComponent implements OnInit {
 			(err) => {
 			if (err === 'Unauthorized') {
 				this.modalActions.emit({action:"toast",params:[['Tus credenciales no son correctas'],2000]});
-			}});
+		  	}else if(err === 'Unactivated'){
+          this.modalActions.emit({action:"toast",params:[['Hemos enviado un correo de verificacion a tu cuenta, Activala para poder iniciar sesion'],3000]});
+        }
+
+    });
 
 		}
 

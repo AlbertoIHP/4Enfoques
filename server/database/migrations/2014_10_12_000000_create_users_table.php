@@ -13,53 +13,56 @@ class CreateUsersTable extends Migration
 	 */
 	public function up()
 	{
+		// Schema::table('users', function (Blueprint $table) {
+		// 	$table->timestamp('deleted_at')->nullable();
+		// 	$table->rememberToken();
+		// 	$table->timestamps();
+		// });
+		// Schema::table('projects', function (Blueprint $table) {
+		// 	$table->timestamp('deleted_at')->nullable();
+		// 	$table->rememberToken();
+		// 	$table->timestamps();
+		// });
+
+		// Schema::table('stakeholders', function (Blueprint $table) {
+		// 	$table->timestamp('deleted_at')->nullable();
+		// 	$table->rememberToken();
+		// 	$table->timestamps();
+		// });
+
+
+		// Schema::table('goals', function (Blueprint $table) {
+		// 	$table->timestamp('deleted_at')->nullable();
+		// 	$table->rememberToken();
+		// 	$table->timestamps();
+		// });
+
+
+		// Schema::table('softgoals', function (Blueprint $table) {
+		// 	$table->timestamp('deleted_at')->nullable();
+		// 	$table->rememberToken();
+		// 	$table->timestamps();
+		// });
+
+
+		// Schema::table('softgoals_has_nfrs', function (Blueprint $table) {
+		// 	$table->timestamp('deleted_at')->nullable();
+		// 	$table->rememberToken();
+		// 	$table->timestamps();
+		// });
+
+
+
+		// Schema::table('nfrs', function (Blueprint $table) {
+		// 	$table->timestamp('deleted_at')->nullable();
+		// 	$table->rememberToken();
+		// 	$table->timestamps();
+		// });
+
 		Schema::table('users', function (Blueprint $table) {
-			$table->timestamp('deleted_at')->nullable();
-			$table->rememberToken();
-			$table->timestamps();
+			$table->boolean('confirmed')->default(0);
+			$table->string('confirmation_code')->nullable();
 		});
-		Schema::table('projects', function (Blueprint $table) {
-			$table->timestamp('deleted_at')->nullable();
-			$table->rememberToken();
-			$table->timestamps();
-		});
-
-		Schema::table('stakeholders', function (Blueprint $table) {
-			$table->timestamp('deleted_at')->nullable();
-			$table->rememberToken();
-			$table->timestamps();
-		});
-
-
-		Schema::table('goals', function (Blueprint $table) {
-			$table->timestamp('deleted_at')->nullable();
-			$table->rememberToken();
-			$table->timestamps();
-		});
-
-
-		Schema::table('softgoals', function (Blueprint $table) {
-			$table->timestamp('deleted_at')->nullable();
-			$table->rememberToken();
-			$table->timestamps();
-		});
-
-
-		Schema::table('softgoals_has_nfrs', function (Blueprint $table) {
-			$table->timestamp('deleted_at')->nullable();
-			$table->rememberToken();
-			$table->timestamps();
-		});
-
-
-
-		Schema::table('nfrs', function (Blueprint $table) {
-			$table->timestamp('deleted_at')->nullable();
-			$table->rememberToken();
-			$table->timestamps();
-		});
-
-
 
 	}
 

@@ -12,6 +12,11 @@ use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
+//CORREO TIII
+use Illuminate\Support\Facades\Mail;
+use Input;
+
+
 /**
  * Class UserController
  * @package App\Http\Controllers\API
@@ -107,16 +112,55 @@ class UserAPIController extends AppBaseController
 	 *      )
 	 * )
 	 */
-	public function store(CreateUserAPIRequest $request)
-	{
-		$input = $request->all();
+	// public function store(CreateUserAPIRequest $request)
+	// {
+	// 	$input = $request->all();
 
-		$input["password"] = bcrypt($input["password"]);
+	// 	$input["password"] = bcrypt($input["password"]);
 
-		$users = $this->userRepository->create($input);
+	// 	$users = $this->userRepository->create($input);
 
-		return $this->sendResponse($users->toArray(), 'User saved successfully');
+	// 	return $this->sendResponse($users->toArray(), 'User saved successfully');
+	// }
+
+
+public function store(Request $request){
+
+	$confirmation_code = str_random(30);
+	$input = $request->all();
+
+	$rules = [
+	  'email' => 'required|unique:users',
+	  'password' => 'required',
+	];
+	$data = [
+	  'email' => $request->email,
+	  'name' => $request->name,
+	  'password' => bcrypt($request->password),
+	  'confirmation_code' => $confirmation_code,
+	];
+	try {
+	  $validator = \Validator::make($data, $rules);
+	  if ($validator->fails()) {
+		return [
+		  'created' => false,
+		  'errors' => $validator->errors()->all(),
+		];
+	  }else{
+		Mail::send('email.validarCuenta', 
+		  ['confirmation_code' => $confirmation_code], function ($message) {
+			$message->to(Input::get('email'), Input::get('nombre'))
+				->subject('Por favor verifique su cuenta');
+		});
+		User::create($data);
+		return ['created' => true];
+	  }
+	} catch (\Exception $e) {
+	  \Log::info('Error creating user: ' . $e);
+	  return \Response::json(['created' => false], 500);
 	}
+  }
+
 
 	/**
 	 * @param int $id
@@ -283,4 +327,19 @@ class UserAPIController extends AppBaseController
 
 		return $this->sendResponse($id, 'User deleted successfully');
 	}
+
+	  public function confirm ($confirmation_code) {
+
+		if (!$confirmation_code) {
+		  return \Response::json(['confirmation_code' => 'Invalid'], 500);
+		}
+		$user = User::whereConfirmationCode($confirmation_code)->first();
+		if (!$user) {
+		  return \Response::json(['confirmation_code' => 'Invalid'], 500);
+		}
+		$user->confirmed = 1;
+		$user->confirmation_code = null;
+		$user->save();
+		return \Response::json(['verified' => true, 'confirmed' => $user->confirmed]);
+	  }
 }

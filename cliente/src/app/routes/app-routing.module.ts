@@ -21,10 +21,10 @@ const routes: Routes = [
 	children: [
 	  { path: '', component: PreviewComponent},
 	  { path: 'stakeholder', component: StakeholderComponent },
-  	{ path: 'goal', component: GoalComponent },
-  	{ path: 'softgoal', component: SoftgoalComponent },
-  	{ path: 'nfr', component: NfrComponent },
-    { path: 'preview', component: PreviewComponent }
+	{ path: 'goal', component: GoalComponent },
+	{ path: 'softgoal', component: SoftgoalComponent },
+	{ path: 'nfr', component: NfrComponent },
+	{ path: 'preview', component: PreviewComponent }
 	]
    }
 

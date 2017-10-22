@@ -49,8 +49,8 @@ import { HighlightDirective } from './directives/highlight/highlight.directive';
   providers: [
 		UserService,
 		AuthenticationService,
-  	appRoutingProviders,
-    ProjectService
+	  appRoutingProviders,
+	  ProjectService
   ],
   bootstrap: [AppComponent]
 })

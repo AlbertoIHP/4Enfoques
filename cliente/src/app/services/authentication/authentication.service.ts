@@ -82,7 +82,9 @@ export class AuthenticationService {
 			}).catch(e => {
 			if (e.status === 401) {
 				return Observable.throw('Unauthorized');
-			}
+			}else if(e.status === 405){
+        return Observable.throw('Unactivated');
+      }
 			// do any other checking for statuses here
 		});
 
@@ -97,13 +99,13 @@ export class AuthenticationService {
 		localStorage.removeItem('currentUser');
 	  localStorage.removeItem('currentId');
 	  localStorage.removeItem('projectId');
-    localStorage.removeItem('currentStakeholders');
-    localStorage.removeItem('stakeholderId');
-    localStorage.removeItem('currentGoals');
-    localStorage.removeItem('currentSoftgoals');
-    localStorage.removeItem('goalId');
-    localStorage.removeItem('allNfrs');
-    localStorage.removeItem('softgoalId');
+	localStorage.removeItem('currentStakeholders');
+	localStorage.removeItem('stakeholderId');
+	localStorage.removeItem('currentGoals');
+	localStorage.removeItem('currentSoftgoals');
+	localStorage.removeItem('goalId');
+	localStorage.removeItem('allNfrs');
+	localStorage.removeItem('softgoalId');
 
 	}
 }
